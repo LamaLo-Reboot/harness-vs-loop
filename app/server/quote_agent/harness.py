@@ -14,6 +14,7 @@ For each quote request:
 3. compute our selling prices in euros: the supplier's price converted, plus a 20% margin;
 4. write the quote and save it in our software.
 
+The supplier's price for the HDMI cable (HDMI-2M) is for a box of 10 cables.
 Never a quote without today's rate.
 Usual payment terms: payment within 30 days.
 Answer in English, briefly.

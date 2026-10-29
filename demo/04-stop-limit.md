@@ -43,7 +43,7 @@ agent › I haven't made the quote for Moreau, because I couldn't get today's ex
 Point at the turn counter and the total climbing, call after call. Then at the end: it stopped by
 itself, after 17 attempts. On other runs it was 13 or 16.
 
-> « Ce soir, ce modèle s'arrête au bout d'une quinzaine d'essais, quand il le décide. Avec un autre modèle, une autre consigne, ou une nuit entière, rien ne l'arrête. Dans notre code, la boucle n'a aucune limite, sauf celle qu'on écrit. Et personne n'est prévenu. »
+> "Tonight, this model stops after about fifteen attempts, when it decides to. With another model, another instruction, or a whole night, nothing stops it. In our code, the loop has no limit except the one we write. And nobody is told."
 
 ## The fix
 
@@ -65,7 +65,7 @@ The reset prints what changed:
 +MAX_SPEND_CENTS = 200  # per request, in the engine's billing currency
 ```
 
-> « Le modèle ne décide plus quand s'arrêter. On l'a décidé avant de démarrer. »
+> "The model no longer decides when to stop. We decided it before starting."
 
 ## After
 
@@ -85,7 +85,7 @@ Show `app/server/out/alerts.txt`:
 2026-10-29 15:42 · quote agent stopped: 5 attempts at get_exchange_rate with no result
 ```
 
-> « Arrêté, pas "fini". Et quelqu'un le sait. »
+> "Stopped, not 'done'. And someone knows."
 
 ## What we saw in rehearsal
 

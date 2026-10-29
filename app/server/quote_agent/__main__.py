@@ -2,7 +2,8 @@
 
 Commands: `/backend engine|ollama|fake` switches where the model runs, even mid-conversation;
 `/model auto [budget|latency|performance]` lets the engine pick the model, `/model <id>` names
-one, and `/model` alone goes back to the one in `.env` (engine only); `/quit` leaves. Ctrl+C stops the agent's current turn and forgets it, without leaving.
+one, and `/model` alone goes back to the one in `.env` (engine only); `/clear` empties the
+conversation and the running total, keeping the backend and model; `/quit` leaves. Ctrl+C stops the agent's current turn and forgets it, without leaving.
 """
 
 import asyncio
@@ -21,7 +22,7 @@ load_dotenv(Path(__file__).resolve().parent.parent / ".env")
 def _banner(agent: Agent) -> str:
     return (
         f"Quote agent · {agent.backend.label} via {agent.backend.name} · {demo_state.label(demo_state.current())}"
-        " · /backend engine|ollama|fake · /model · /quit"
+        " · /backend engine|ollama|fake · /model · /clear · /quit"
     )
 
 
@@ -38,6 +39,11 @@ def main() -> None:
             continue
         if request == "/quit":
             break
+        if request == "/clear":
+            agent.conversation.clear()
+            agent.spent_cents = 0.0
+            print("  conversation and total cleared")
+            continue
         if request.startswith("/backend"):
             name = request.removeprefix("/backend").strip()
             if name not in backends.NAMES:

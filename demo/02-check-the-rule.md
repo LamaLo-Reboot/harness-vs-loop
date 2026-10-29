@@ -36,7 +36,7 @@ agent › I saved quote Q-0001 for Bernard.
 Point at "payment within 30 days", then open `app/server/data/customer_accounts.json`: Bernard,
 `"unpaid_invoices": 2`.
 
-> « Le devis est propre, le calcul est juste, et il dit "fini" parce qu'il le pense. Mais il accorde 30 jours à un client qui ne paie pas. Aucun modèle ne peut deviner les impayés : l'info est à la compta, et l'agent n'y a pas accès. »
+> "The quote is clean, the math is right, and it says 'done' because it believes it. But it gives 30 days to a customer who doesn't pay. No model can guess the unpaid invoices: that information is in accounting, and the agent has no access to it."
 
 ## The fix
 
@@ -63,7 +63,7 @@ The reset prints what changed:
 +                continue
 ```
 
-> « "Fini", ce n'est plus l'agent qui le décide. C'est un programme qui dit oui ou non. »
+> "'Done' is no longer the agent's call. It's a program that says yes or no."
 
 ## After
 
@@ -87,7 +87,7 @@ Q-0001 is still in the software with the old 30-day terms. I have no tool to del
 Point at the bold `✘` line: our code, not the model. Then at the second `save_quote`: the agent
 fixed its own work with information it could never have found on its own.
 
-> « La vérification lui apporte ce qu'il ne pouvait pas savoir, et sa réponse repart dans la loop. »
+> "The check brings it what it couldn't know, and its answer goes back into the loop."
 
 Worth a word: the agent says on its own that Q-0001 still exists and must be removed by hand.
 It has no tool to delete a quote, and it says so instead of pretending.

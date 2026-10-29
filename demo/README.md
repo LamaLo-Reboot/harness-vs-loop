@@ -80,6 +80,7 @@ Bold lines are our harness at work, not the model.
 | `/model <provider/model>` | names a model, for example `/model anthropic/claude-opus-5-5` |
 | `/model` | back to the model in `.env` |
 | `/backend engine\|ollama\|fake` | where the model runs |
+| `/clear` | empties the conversation and puts the total back to 0; keeps the backend and model, and leaves `out/` as it is |
 | `/quit` | leaves; restarting goes back to the model in `.env` |
 
 The demo uses `auto` twice, as an extra after a before or an after, never instead of it:

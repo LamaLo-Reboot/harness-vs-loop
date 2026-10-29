@@ -42,7 +42,7 @@ cd app/server && uv run python -m quote_agent
 The first line says which model runs, where, and which step of the demo the agent is in:
 
 ```
-Quote agent · anthropic/claude-sonnet-5-5 via engine · start · /backend engine|ollama|fake · /model · /quit
+Quote agent · anthropic/claude-sonnet-5-5 via engine · start · /backend engine|ollama|fake · /model · /clear · /quit
 ```
 
 ## Show the code (2 min)
@@ -52,11 +52,11 @@ Walk through the four files that make the agent, in this order:
 1. **`agent.py`, the method `ask`: this is the loop.** It sends the conversation to the model.
    If the model asks for a tool, our code runs it, appends the result to the conversation, and
    goes around again. If the model answers with text, the turn is over.
-   > « Toute la "magie" de l'agent, c'est cette boucle de quelques lignes. »
+   > "All of the agent's 'magic' is this loop of a few lines."
 2. **`tools.py`: the four tools.** Each one has a description for the model and a Python function
    for us: `get_supplier_prices` (the supplier's price list), `get_exchange_rate` (the bank's
    rate), `send_quote` (emails the quote), `save_quote` (records it in our old software).
-   > « Le modèle n'exécute rien. Il demande un outil par son nom ; c'est notre code qui agit. »
+   > "The model runs nothing. It asks for a tool by its name; our code is what acts."
 3. **`harness.py`: the instructions.** Today, that's all the harness there is. Two lines matter
    later: "Never a quote without today's rate." (example 4) and "Usual payment terms: payment
    within 30 days." (example 2).
@@ -68,33 +68,13 @@ Walk through the four files that make the agent, in this order:
 Make a quote for Martin: 2 wireless keyboards and 2 wireless mice.
 ```
 
-What appears, from our recorded run (the costs and the wording vary a little from run to run):
-
-```
-  ⟳ turn 1 · anthropic/claude-sonnet-5-5 · 0.12 ¢ USD · total 0.12 ¢
-  🔧 get_supplier_prices() → TechDistrib — price list (US dollars) …
-  🔧 get_exchange_rate({"currency": "USD"}) → 1 EUR = 1.1133 USD (ECB reference rate of 2026-10-28)
-  ⟳ turn 2 · anthropic/claude-sonnet-5-5 · 0.54 ¢ USD · total 0.66 ¢
-  🔧 save_quote({"customer": "Martin", "lines": [{"ref": "KB-WL", "quantity": 2, "uni…) → Quote Q-0001 saved.
-  ⟳ turn 3 · anthropic/claude-sonnet-5-5 · 0.47 ¢ USD · total 1.13 ¢
-
-agent › I saved quote Q-0001 for Martin, using the rate 1 EUR = 1.1133 USD (ECB reference rate of 2026-10-28).
-| Ref | Item | Qty | Unit price | Total |
-|---|---|---|---|---|
-| KB-WL | Wireless keyboard | 2 | €30.18 | €60.36 |
-| MS-WL | Wireless mouse | 2 | €16.17 | €32.34 |
-| | **Total** | | | **€92.70** |
-Unit prices are the supplier's dollar price converted at that rate, plus our 20% margin. Payment is due within 30 days.
-I haven't emailed the quote to Martin. Do you want me to send it?
-```
-
 Point at each kind of line:
 
 - **`⟳ turn N`** is one call to the model, one turn of the loop, with what it cost and the
   running total.
 - **`🔧`** is one tool our code ran for the model, with what came back.
 - **The answer is right:** $28 ÷ 1.1133 × 1.20 = €30.18 per keyboard, $15 → €16.17 per mouse.
-  > « Trois tours de boucle, quatre outils, un devis juste, pour un peu plus d'un centime. Ça marche… sur un cas simple. La suite, c'est ce qui se passe quand ce n'est plus simple. »
+  > "Three loop turns, four tools, one fair quote, for a little over a cent. It works… on a simple case. What comes next is what happens when it is no longer simple."
 
 ## Let the engine pick the model (`auto`, fastest)
 
@@ -120,7 +100,7 @@ The first line changes to `Quote agent · auto (latency) via engine`. From our r
 Point at the `⟳ turn` lines: another model, chosen by the engine, several times cheaper per
 turn. It picks again at every turn of the loop.
 
-> « Même agent, même conversation. On n'a pas choisi le modèle : on a dit au moteur ce qui compte, ici la vitesse, et il a choisi. »
+> "Same agent, same conversation. We didn't choose the model: we told the engine what matters — speed — and it chose."
 
 Go back to Sonnet with `/model` alone (it goes back to the model in `.env`).
 
@@ -141,7 +121,7 @@ The conversation carries on with the local model: same code, same tools, same in
 cost line says `no price (local model)`. In 2 runs, `qwen3.5:4b` saved the quote both times, with
 the monitor at €149.83 and €150.99 instead of €149.82: a small model's arithmetic. Switch back with `/backend engine`.
 
-> « Même agent, même harnais : seul le modèle a changé. »
+> "Same agent, same harness: only the model changed."
 
 ## Where things land
 

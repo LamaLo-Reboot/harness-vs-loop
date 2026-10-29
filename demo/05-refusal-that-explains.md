@@ -40,7 +40,7 @@ agent › I couldn't save the quote, so I haven't sent it to Garnier. The save f
 Can you check the business software, or tell me to retry? I'll send the quote as soon as it saves.
 ```
 
-> « Il réessaie la même chose, puis il abandonne. Il ne peut pas se corriger : la nouvelle référence n'existe nulle part où il peut regarder. Aucun outil, aucun essai au hasard ne peut la lui donner. »
+> "It retries the same thing, then gives up. It can't correct itself: the new reference exists nowhere it can look. No tool, no random attempt can give it to it."
 
 ## The fix
 
@@ -61,7 +61,7 @@ The reset prints what changed:
 +                    result = harness.explain(call["name"], arguments, tools.run(call["name"], arguments))
 ```
 
-> « Le logiciel, on ne le contrôle pas. Le code entre l'agent et le logiciel, si. Le message d'erreur fait partie du harness. »
+> "We don't control the software. The code between the agent and the software, we do. The error message is part of the harness."
 
 ## After
 
@@ -84,7 +84,7 @@ The whole message the agent got:
 
 > "Quote not saved. Reference HDMI-2M was replaced by HDMI-2M-V2: same product, same price. Save the line with HDMI-2M-V2."
 
-> « Seul le message a changé. Un refus qui dit quoi faire à la place, et l'agent se corrige au premier essai. »
+> "Only the message changed. A refusal that says what to do instead, and the agent corrects itself on the first try."
 
 ## What we saw in rehearsal
 

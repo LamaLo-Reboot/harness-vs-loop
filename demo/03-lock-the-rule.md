@@ -71,7 +71,7 @@ agent › Durand's quote now includes the 2 USB-C docking stations. It was saved
 Point at the summary: the quotes are there, "never send it without my approval" is not. Then at
 `send_quote` → "Quote sent to Durand".
 
-> « Il n'a pas désobéi : il n'avait plus la règle. C'est ce qui est arrivé chez Meta : la consigne "demande-moi avant" s'est perdue quand l'agent a compressé sa mémoire. »
+> "It didn't disobey: it no longer had the rule. That's what happened at Meta: the instruction 'ask me first' got lost when the agent compressed its memory."
 
 ## The fix
 
@@ -96,7 +96,7 @@ The reset prints what changed:
 +                    result = tools.run(call["name"], arguments)
 ```
 
-> « Ce n'est pas un outil que l'agent pourrait appeler pour se donner l'accord. C'est notre code qui attend une réponse au clavier. »
+> "This isn't a tool the agent could call to give itself the approval. It's our code, waiting for an answer at the keyboard."
 
 ## After
 
@@ -114,7 +114,7 @@ memory, the loop stops and asks. Type `n`:
 agent › I saved the updated quote for Durand, but the email wasn't sent. The send was refused because the person in charge didn't approve it, so Durand hasn't received anything.
 ```
 
-> « L'agent a encore oublié la règle. Ça n'a plus d'importance : la règle n'est plus dans sa mémoire, elle est dans le code. »
+> "The agent forgot the rule again. It doesn't matter anymore: the rule is no longer in its memory, it's in the code."
 
 From here on the lock stays: every send in examples 4 and 5 asks too.
 

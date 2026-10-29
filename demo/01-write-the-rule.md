@@ -37,7 +37,7 @@ agent › I saved quote Q-0001 for Leroy. I haven't emailed it.
 
 Point at the total: **€2,263.50** for 50 cables. The real price is ten times lower.
 
-> « 42 $ pour un câble, ça paraît plausible. Rien ne lui dit qu'il manque une info, alors il ne pose pas de question : il calcule. Un devis dix fois trop cher, et le client part. »
+> "$42 for a cable looks plausible. Nothing tells it that information is missing, so it doesn't ask: it computes. A quote ten times too expensive, and the customer walks away."
 
 ### The same before, on the engine's strongest model (`auto`, performance)
 
@@ -59,7 +59,7 @@ Same total: **€2,263.50**. In 3 rehearsal runs, Opus gave that total every tim
 also warned that $42 looks expensive for a cable and should be checked, and it saved the wrong
 quote anyway.
 
-> « Le meilleur modèle du moteur fait la même erreur. Il sent que quelque chose cloche, mais il ne peut pas savoir : l'info n'est écrite nulle part. Ce n'est pas le modèle. »
+> "The engine's best model makes the same mistake. It senses that something is off, but it cannot know: the information is written down nowhere. It isn't the model."
 
 The fix below restarts the agent, which goes back to the model in `.env`.
 
@@ -79,7 +79,7 @@ The reset prints what changed: one line in the instructions, in `harness.py`.
  Never a quote without today's rate.
 ```
 
-> « Une ligne. Ce que tout le service achats sait, écrit là où l'agent le lit, à chaque appel. »
+> "One line. What everyone in purchasing knows, written where the agent reads it, on every call."
 
 ## After
 
@@ -96,7 +96,7 @@ agent › Quote Q-0001 for Leroy is saved.
 - **Total:** €226.35
 ```
 
-> « Même modèle, mêmes outils. Seules les instructions ont changé. »
+> "Same model, same tools. Only the instructions changed."
 
 ## What we saw in rehearsal
 
