@@ -1,0 +1,7 @@
+tmp.md
+.venv/
+__pycache__/
+.pytest_cache/
+.env
+app/server/out/
+.demo-state

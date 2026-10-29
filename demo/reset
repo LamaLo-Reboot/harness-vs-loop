@@ -1,0 +1,87 @@
+#!/usr/bin/env python3
+"""Put the agent in one step of the demo.
+
+    ./demo/reset 0                  the starting point: a bare agent
+    ./demo/reset <1-5> before       an example, before its fix
+    ./demo/reset <1-5> after        the same example, after its fix (prints what changed)
+
+Each step lives in `demo/states/<step>/`. The steps build on each other in demo order: the
+harness grows example after example, so the fix of example 4 is still there in example 5. A
+step's folder holds only what changes at that step: whole files, copied over the agent in
+`app/server/`. A step with a `data/` folder replaces the agent's data with it. A README.md in a
+step's folder explains it and is not copied.
+
+Resetting also empties `app/server/out/` (saved quotes, sent quotes, alerts). Restart the agent
+afterwards. Set SERVER_DIR to reset another copy of `app/server/`.
+"""
+
+import difflib
+import os
+import shutil
+import sys
+import tempfile
+from pathlib import Path
+
+DEMO_DIR = Path(__file__).resolve().parent
+STATES_DIR = DEMO_DIR / "states"
+SERVER_DIR = Path(os.environ.get("SERVER_DIR", DEMO_DIR.parent / "app" / "server"))
+STEPS = ["0-start"] + [f"{example}-{moment}" for example in range(1, 6) for moment in ("before", "after")]
+SWAPPED = ["quote_agent/agent.py", "quote_agent/harness.py", "data"]
+
+GREEN, RED, CYAN, BOLD, RESET = "\033[32m", "\033[31m", "\033[36m", "\033[1m", "\033[0m"
+
+
+def compose(step: str, into: Path) -> None:
+    """Write the agent's swapped files for `step` into `into`, from every step up to it."""
+    for path in SWAPPED:
+        target = into / path
+        if target.is_dir():
+            shutil.rmtree(target)
+        elif target.exists():
+            target.unlink()
+    for layer in STEPS[: STEPS.index(step) + 1]:
+        layer_dir = STATES_DIR / layer
+        if (layer_dir / "data").is_dir() and (into / "data").exists():
+            shutil.rmtree(into / "data")
+        for source in sorted(layer_dir.rglob("*")) if layer_dir.exists() else []:
+            if source.is_file() and source.name != "README.md":
+                target = into / source.relative_to(layer_dir)
+                target.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copyfile(source, target)
+
+
+def print_diff(before: str, after: str) -> None:
+    with tempfile.TemporaryDirectory() as old, tempfile.TemporaryDirectory() as new:
+        compose(before, Path(old))
+        compose(after, Path(new))
+        for path in sorted({p.relative_to(old) for p in Path(old).rglob("*.py")} | {p.relative_to(new) for p in Path(new).rglob("*.py")}):
+            old_lines = (Path(old) / path).read_text(encoding="utf-8").splitlines() if (Path(old) / path).exists() else []
+            new_lines = (Path(new) / path).read_text(encoding="utf-8").splitlines() if (Path(new) / path).exists() else []
+            for line in difflib.unified_diff(old_lines, new_lines, f"before/{path}", f"after/{path}", n=1, lineterm=""):
+                if line.startswith(("---", "+++")):
+                    print(f"{BOLD}{line}{RESET}")
+                elif line.startswith("@@"):
+                    print(f"{CYAN}{line}{RESET}")
+                elif line.startswith("+"):
+                    print(f"{GREEN}{line}{RESET}")
+                elif line.startswith("-"):
+                    print(f"{RED}{line}{RESET}")
+                else:
+                    print(line)
+
+
+def main(arguments: list[str]) -> None:
+    step = "0-start" if arguments == ["0"] else "-".join(arguments)
+    if step not in STEPS:
+        sys.exit(__doc__.split("\n\n")[1])
+    compose(step, SERVER_DIR)
+    shutil.rmtree(SERVER_DIR / "out", ignore_errors=True)
+    (SERVER_DIR / ".demo-state").write_text(step + "\n", encoding="utf-8")
+    print(f"{BOLD}Agent reset to step {step}.{RESET} Restart it: uv run python -m quote_agent")
+    if step.endswith("-after"):
+        print("\nWhat the fix changed:\n")
+        print_diff(step.replace("after", "before"), step)
+
+
+if __name__ == "__main__":
+    main(sys.argv[1:])

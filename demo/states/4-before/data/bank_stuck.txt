@@ -1,0 +1,5 @@
+Scripted for example 4: tonight the bank's rate service is stuck. Whatever the agent asks, it
+answers "in progress", with these positions in its queue, again and again. Delete this file and
+the bank is the real ECB feed again.
+
+12 9 11 7 10 8 13 6 9 11

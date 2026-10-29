@@ -1,0 +1,8 @@
+TechDistrib — price list (US dollars)
+
+KB-WL     Wireless keyboard          $28
+MS-WL     Wireless mouse             $15
+HDMI-2M   HDMI cable, 2 m            $42
+USBC-1M   USB-C cable, 1 m            $9
+SCR-24    24-inch monitor           $139
+DOCK-C    USB-C docking station      $89

@@ -1,0 +1,5 @@
+{
+  "_note": "The references our old software knows (example 5). It refuses any other with a bare ERR 4012. HDMI-2M was replaced by HDMI-2M-V2 last month; the supplier's catalog was never updated.",
+  "active": ["KB-WL", "MS-WL", "HDMI-2M-V2", "USBC-1M", "SCR-24", "DOCK-C"],
+  "replaced": {"HDMI-2M": "HDMI-2M-V2"}
+}

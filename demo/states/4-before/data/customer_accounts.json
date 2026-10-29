@@ -1,0 +1,6 @@
+{
+  "_note": "What accounting knows about our customers. The agent has no tool to read this file.",
+  "Bernard": {"unpaid_invoices": 2},
+  "Martin": {"unpaid_invoices": 0},
+  "Durand": {"unpaid_invoices": 0}
+}
